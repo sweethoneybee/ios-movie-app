@@ -2,6 +2,8 @@ import UIKit
 import Foundation
 
 class ListViewController: UITableViewController {
+    // 현재까지 읽어온 데이터의 페이지 정보
+    var page = 1
     
     // 테이블 뷰를 구성할 리스트 데이터
     lazy var list: [MovieVO] = {
@@ -9,9 +11,28 @@ class ListViewController: UITableViewController {
         return datalist
     }()
     
+    @IBOutlet var moreBtn: UIButton!
+    @IBOutlet var lastPage: UILabel!
+    
+    @IBAction func more(_ sender: Any) {
+        // 현재 페이지 값에 1을 추가한다.
+        self.page += 1
+        
+        // 영화차트 API를 호출한다.
+        self.callMovieAPI()
+        
+        // 데이터를 다시 읽어오도록 테이블 뷰를 갱신한다.
+        self.tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
+        // 영화 차트 API를 호출한다
+        self.callMovieAPI()
+    }
+    
+    func callMovieAPI() {
         // 호핀 API 호출을 위한 URI 를 생성
-        let url = "http://swiftapi.rubypaper.co.kr:2029/hoppin/movies?version=1&page=1&count=10&genreId=&order=releasedateasc"
+        let url = "http://swiftapi.rubypaper.co.kr:2029/hoppin/movies?version=1&page=\(self.page)&count=10&genreId=&order=releasedateasc"
         let apiURI: URL! = URL(string: url)
         
         // REST API 호출
@@ -46,8 +67,19 @@ class ListViewController: UITableViewController {
                 
                 // 리스트 배열에 추가
                 self.list.append(mvo)
+                
+                // 전체 데이터 카운트를 얻는다.
+                let totalCount = (hoppin["totalCount"] as? NSString)!.integerValue
+                
+                // totalCount가 읽어온 데이터 크기와 같거나 클 경우 더보기 버튼을 막는다
+                if (self.list.count >= 30) {
+                    self.moreBtn.isHidden = true
+                    self.lastPage.isHidden = false
+                }
             }
-        } catch { }
+        } catch {
+            NSLog("Parse Error!!")
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

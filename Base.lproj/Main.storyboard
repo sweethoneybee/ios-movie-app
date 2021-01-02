@@ -18,6 +18,23 @@
                         <view key="tableFooterView" contentMode="scaleToFill" id="CZT-5e-fE5">
                             <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Th9-tL-lLM">
+                                    <rect key="frame" x="168" y="7" width="39" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="더보기"/>
+                                    <connections>
+                                        <action selector="more:" destination="JJV-Rn-Tec" eventType="touchUpInside" id="W2v-Uk-FPz"/>
+                                    </connections>
+                                </button>
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="마지막 목록입니다" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFi-T0-DRz">
+                                    <rect key="frame" x="8" y="12" width="359" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <prototypes>
@@ -78,6 +95,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="영화정보" id="Ycf-cA-9Zb"/>
+                    <connections>
+                        <outlet property="lastPage" destination="FFi-T0-DRz" id="awt-YF-ugl"/>
+                        <outlet property="moreBtn" destination="Th9-tL-lLM" id="Bhm-Eq-ums"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hN-RW-Kgl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
