@@ -32,7 +32,7 @@ class ListViewController: UITableViewController {
     
     func callMovieAPI() {
         // 호핀 API 호출을 위한 URI 를 생성
-        let url = "http://swiftapi.rubypaper.co.kr:2029/hoppin/movies?version=1&page=\(self.page)&count=10&genreId=&order=releasedateasc"
+        let url = "http://swiftapi.rubypaper.co.kr:2029/hoppin/movies?version=1&page=\(self.page)&count=30&genreId=&order=releasedateasc"
         let apiURI: URL! = URL(string: url)
         
         // REST API 호출
@@ -65,6 +65,11 @@ class ListViewController: UITableViewController {
                 mvo.detail = r["linkUrl"] as? String
                 mvo.rating = ((r["ratingAverage"] as! NSString).doubleValue)
                 
+                // 웹상에 있는 이미지를 읽어와 UIImage로 생성
+                let url: URL! = URL(string: mvo.thumbnail!)
+                let imageData = try! Data(contentsOf: url)
+                mvo.thumbnailImage = UIImage(data:imageData)
+                
                 // 리스트 배열에 추가
                 self.list.append(mvo)
                 
@@ -72,13 +77,29 @@ class ListViewController: UITableViewController {
                 let totalCount = (hoppin["totalCount"] as? NSString)!.integerValue
                 
                 // totalCount가 읽어온 데이터 크기와 같거나 클 경우 더보기 버튼을 막는다
-                if (self.list.count >= 30) {
+                if (self.list.count >= totalCount) {
                     self.moreBtn.isHidden = true
                     self.lastPage.isHidden = false
                 }
             }
         } catch {
             NSLog("Parse Error!!")
+        }
+    }
+    
+    func getThumbnailImage(_ index: Int) -> UIImage {
+        // 인자값으로 받은 인덱스를 기반으로 해당하는 배열 데이터를 읽어옴
+        let mvo = self.list[index]
+        
+        // 메모이제이션: 저장된 이미지가 있으면 그것을 반환하고, 없을 경우 내려받아 저장한 후 반환
+        if let savedImage = mvo.thumbnailImage {
+            return savedImage
+        } else {
+            let url: URL! = URL(string: mvo.thumbnail!)
+            let imageData = try! Data(contentsOf: url)
+            mvo.thumbnailImage = UIImage(data: imageData) // UIImage를 MovieVO 객체에 우선 저장
+            
+            return mvo.thumbnailImage! // 저장된 이미지를 반환
         }
     }
     
@@ -89,6 +110,8 @@ class ListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 주어진 행에 맞는 데이터 소스를 읽어온다.
         let row = self.list[indexPath.row]
+        // 로그 출력
+//        NSLog("제목:\(row.title!), 호출된 행번호:\(indexPath.row)")
         // 테이블 셀 객체를 직접 생성하는 대신 큐로부터 가져옴
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell") as! MovieCell
         
@@ -98,17 +121,11 @@ class ListViewController: UITableViewController {
         cell.opendate?.text = row.opendate
         cell.rating?.text = "\(row.rating!)"
         
-        // 이미지 가져오는 걸 한줄로 표현
-//        cell.thumbnail.image = UIImage(data: try! Data(contentsOf: URL(string: row.thumbnail!)!))
+        // 수정) 비동기 방식으로 섬네일 이미지를 읽어옴
+        DispatchQueue.main.async{
+            cell.thumbnail.image = self.getThumbnailImage(indexPath.row)
+        }
         
-        // 섬네일 경로를 인자값으로 하는 URL 객체를 생성
-        let url: URL! = URL(string: row.thumbnail!)
-        
-        // 이미지를 읽어와 Data 객체에 저장
-        let imageData = try! Data(contentsOf: url)
-        
-        // UIImage 객체를 생성하여 아울렛 변수의 image 속성에 대입
-        cell.thumbnail.image = UIImage(data: imageData)
         
         // 셀 객체를 반환
         return cell
