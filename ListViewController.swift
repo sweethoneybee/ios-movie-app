@@ -12,7 +12,6 @@ class ListViewController: UITableViewController {
     }()
     
     @IBOutlet var moreBtn: UIButton!
-    @IBOutlet var lastPage: UILabel!
     
     @IBAction func more(_ sender: Any) {
         // 현재 페이지 값에 1을 추가한다.
@@ -79,7 +78,6 @@ class ListViewController: UITableViewController {
                 // totalCount가 읽어온 데이터 크기와 같거나 클 경우 더보기 버튼을 막는다
                 if (self.list.count >= totalCount) {
                     self.moreBtn.isHidden = true
-                    self.lastPage.isHidden = false
                 }
             }
         } catch {
@@ -114,7 +112,7 @@ class ListViewController: UITableViewController {
 //        NSLog("제목:\(row.title!), 호출된 행번호:\(indexPath.row)")
         // 테이블 셀 객체를 직접 생성하는 대신 큐로부터 가져옴
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell") as! MovieCell
-        
+    
         // 데이터 소스에 저장된 값을 각 아울렛 변수에 할당
         cell.title?.text = row.title
         cell.desc?.text = row.description
@@ -133,5 +131,20 @@ class ListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NSLog("선택된 행은 \(indexPath.row) 번째 행입니다.")
+    }
+}
+
+// MARK:- 화면 전환 시 값을 넘겨주기 위한 세그웨이 관련 처리
+extension ListViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // 실행된 세그웨이 식별자가 "segue_detail"이라면
+        if segue.identifier == "segue_detail" {
+            // 사용자가 클릭한 행을 찾아낸다
+            let path = self.tableView.indexPath(for: sender as! MovieCell)
+            
+            // 행 정보를 통해 선택된 영화 데이터를 찾은 다음, 목적지 뷰 컨트롤러의 mvo 변수에 대입한다.
+            let detailVC = segue.destination as? DetailViewController
+            detailVC?.mvo = self.list[path!.row]
+        }
     }
 }

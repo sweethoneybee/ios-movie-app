@@ -3,6 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,13 +28,6 @@
                                         <action selector="more:" destination="JJV-Rn-Tec" eventType="touchUpInside" id="W2v-Uk-FPz"/>
                                     </connections>
                                 </button>
-                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="마지막 목록입니다" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFi-T0-DRz">
-                                    <rect key="frame" x="8" y="12" width="359" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -85,6 +79,7 @@
                                     <outlet property="rating" destination="UJn-eN-Hob" id="h2e-qj-2Zc"/>
                                     <outlet property="thumbnail" destination="iO9-8V-ReH" id="mIa-h0-PeR"/>
                                     <outlet property="title" destination="hsP-Go-rI5" id="U4B-b2-B9g"/>
+                                    <segue destination="0U9-b4-1yH" kind="show" identifier="segue_detail" id="AIQ-Nn-gA6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -96,13 +91,42 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="영화정보" id="Ycf-cA-9Zb"/>
                     <connections>
-                        <outlet property="lastPage" destination="FFi-T0-DRz" id="awt-YF-ugl"/>
                         <outlet property="moreBtn" destination="Th9-tL-lLM" id="Bhm-Eq-ums"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hN-RW-Kgl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1188" y="158.77061469265368"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="lYr-Pn-nM9">
+            <objects>
+                <viewController id="0U9-b4-1yH" customClass="DetailViewController" customModule="MyMovieChart" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dIH-Oh-XRd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KIh-5G-gE4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="euu-G3-6wB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="PXT-Lx-HhU"/>
+                    <connections>
+                        <outlet property="wv" destination="KIh-5G-gE4" id="esx-cS-Mlh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g93-m7-m0L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2092" y="158.77061469265368"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TJk-ms-ZQA">
