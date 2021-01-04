@@ -152,9 +152,12 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="연락처" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uiy-0m-8cS">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="연락처" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uiy-0m-8cS">
                                             <rect key="frame" x="222" y="11" width="118" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="118" id="KkW-ls-N7d"/>
+                                                <constraint firstAttribute="height" constant="17" id="Yul-kb-YQR"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -168,6 +171,10 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <constraints>
+                                    <constraint firstItem="Uiy-0m-8cS" firstAttribute="top" secondItem="GzO-Uj-KVS" secondAttribute="top" constant="11" id="3q1-jT-Kl7"/>
+                                    <constraint firstAttribute="trailing" secondItem="Uiy-0m-8cS" secondAttribute="trailing" constant="35" id="YzU-rC-kqT"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="addr" destination="Z5O-B7-fGT" id="7eJ-UQ-L6w"/>
                                     <outlet property="name" destination="6PM-9I-cRm" id="C8n-eB-qoD"/>
@@ -195,13 +202,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eqH-3R-pi7">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eqH-3R-pi7">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EGt-NL-aO1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="eqH-3R-pi7" firstAttribute="leading" secondItem="EGt-NL-aO1" secondAttribute="leading" id="DQD-zU-how"/>
+                            <constraint firstItem="eqH-3R-pi7" firstAttribute="top" secondItem="hEG-J6-h4f" secondAttribute="top" id="PL2-yI-p5V"/>
+                            <constraint firstItem="eqH-3R-pi7" firstAttribute="trailing" secondItem="EGt-NL-aO1" secondAttribute="trailing" id="qTz-mf-KVq"/>
+                            <constraint firstAttribute="bottom" secondItem="eqH-3R-pi7" secondAttribute="bottom" id="tT0-JI-3tg"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="3f2-xi-DEd"/>
                     <connections>
@@ -237,9 +249,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KIh-5G-gE4">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIh-5G-gE4">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -254,6 +265,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="euu-G3-6wB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KIh-5G-gE4" firstAttribute="trailing" secondItem="euu-G3-6wB" secondAttribute="trailing" id="IQr-vP-yN0"/>
+                            <constraint firstItem="KIh-5G-gE4" firstAttribute="top" secondItem="dIH-Oh-XRd" secondAttribute="top" id="PEr-cc-dwI"/>
+                            <constraint firstItem="KIh-5G-gE4" firstAttribute="leading" secondItem="euu-G3-6wB" secondAttribute="leading" id="dF4-E6-MAU"/>
+                            <constraint firstAttribute="bottom" secondItem="KIh-5G-gE4" secondAttribute="bottom" id="mSg-fK-FfJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="PXT-Lx-HhU"/>
                     <connections>
