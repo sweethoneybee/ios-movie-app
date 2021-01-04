@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
         
         if let url = self.mvo.detail {
             if let urlObj = URL(string: url) {
+                NSLog("요청완료")
                 let req = URLRequest(url: urlObj)
                 self.wv.load(req)
             } else { // URL 형식이 잘못되었을 경우에 대한 예외처리
@@ -69,6 +70,19 @@ extension DetailViewController: WKNavigationDelegate {
             _ = self.navigationController?.popViewController(animated: true)
         }
     }
+    
+    // 외부 도메인 차단 메소드
+//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+//
+//        // URLRequest로부터 URL을 추출
+//        guard let url = navigationAction.request.url?.absoluteString else {
+//            return
+//        }
+//http://swiftapi.rubypaper.co.kr:2029/theater/list?s_page=1&s_list=100&type=json
+//        if (url.starts(with: "http")) { // URL이 "http"로 시작하면, 즉 외부 도메인이라면
+//            decisionHandler(.cancel)
+//        }
+//    }
 }
 
 // MARK:- 심플한 경고창 함수 정의용 익스텐션
